@@ -1,0 +1,9 @@
+crewai==0.36.1
+langchain_core==0.2.19
+langchain_openai==0.1.16
+openai==1.35.13
+pandas==2.2.2
+reportlab==4.2.0
+streamlit==1.33.0
+sqlite==3.46.0
+

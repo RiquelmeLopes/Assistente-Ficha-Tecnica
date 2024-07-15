@@ -1,0 +1,10 @@
+# Ignorar o arquivo de segredos do Streamlit
+secrets.toml
+trained_agents_data.pkl
+
+# Ignorar arquivos e pastas comuns
+*.log
+*.pyc
+__pycache__/
+.env
+.DS_Store
