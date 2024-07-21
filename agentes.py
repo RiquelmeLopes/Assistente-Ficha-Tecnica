@@ -4,6 +4,8 @@ from langchain_core.callbacks import BaseCallbackHandler
 from io import BytesIO
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.pdfgen import canvas
+import pandas as pd
+from io import StringIO
 
 class MyCustomHandler(BaseCallbackHandler):    
     def __init__(self, agent_name: str) -> None:
@@ -139,3 +141,21 @@ def create_pdf(df1, df2, df3, preparo_str):
     c.save()
     buffer.seek(0)
     return buffer
+
+def save_excel(df1, df2, df3):
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df1.to_excel(writer, sheet_name='Receita', index=False)
+        df2.to_excel(writer, sheet_name='Ingredientes', index=False)
+        df3.to_excel(writer, sheet_name='Valor Nutricional', index=False)
+    return output
+
+def save_csv(df1, df2,df3):
+    output = BytesIO()
+    output.write(df1.to_csv(index=False, encoding='latin-1').encode('latin-1'))
+    output.write(b"\n")  # Adiciona uma linha em branco entre os dataframes
+    output.write(df2.to_csv(index=False, encoding='latin-1').encode('latin-1'))
+    output.write(b"\n")  # Adiciona uma linha em branco entre os dataframes
+    output.write(df3.to_csv(index=False, encoding='latin-1').encode('latin-1'))
+    output.seek(0)
+    return output
