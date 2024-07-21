@@ -249,8 +249,16 @@ with tab2:
                 st.session_state.df3.at[row_index3, col] = inputs3[col]
             st.experimental_rerun()
 
-    if st.button('Baixar como PDF'):
-        pdf_buffer = create_pdf(st.session_state.df1, st.session_state.df2, st.session_state.df3, st.session_state.preparo_str)
-        st.download_button(label="Baixar PDF", data=pdf_buffer, file_name=f"ficha_técnica_{st.session_state.nome_receita}.pdf", mime="application/pdf")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if st.button('Baixar como PDF'):
+            pdf_buffer = create_pdf(st.session_state.df1, st.session_state.df2, st.session_state.df3, st.session_state.preparo_str)
+            st.download_button(label="Baixar PDF", data=pdf_buffer, file_name=f"ficha_técnica_{st.session_state.nome_receita}.pdf", mime="application/pdf")
+    with col2:
+        if st.button('Baixar em CSV'):
+            st.markdown('CSV Ainda não implementado, aguarde atualizações!')
+    with col3:
+        if st.button('Baixar em XLSX'):
+            st.markdown('XLSX Ainda não implementado, aguarde atualizações!')
 
 
