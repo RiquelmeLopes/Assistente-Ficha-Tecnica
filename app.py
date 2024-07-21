@@ -4,7 +4,7 @@ from crewai import Agent, Task, Crew, Process
 from langchain_core.callbacks import BaseCallbackHandler
 from typing import TYPE_CHECKING, Any, Dict, Optional
 from langchain_openai import ChatOpenAI
-from agentes import create_pdf, MyCustomHandler
+from agentes import create_pdf, MyCustomHandler, save_csv, save_excel
 import pandas as pd
 import ast
 
@@ -256,9 +256,11 @@ with tab2:
             st.download_button(label="Baixar PDF", data=pdf_buffer, file_name=f"ficha_técnica_{st.session_state.nome_receita}.pdf", mime="application/pdf")
     with col2:
         if st.button('Baixar em CSV'):
-            st.markdown('CSV Ainda não implementado, aguarde atualizações!')
+            csv_buffer = save_csv(st.session_state.df1, st.session_state.df2, st.session_state.df3)
+            st.download_button(label="Baixar CSV", data=csv_buffer.getvalue(), file_name=f"ficha_técnica_{st.session_state.nome_receita}.csv", mime="text/csv")
     with col3:
         if st.button('Baixar em XLSX'):
-            st.markdown('XLSX Ainda não implementado, aguarde atualizações!')
+            excel_buffer = save_excel(st.session_state.df1, st.session_state.df2, st.session_state.df3)
+            st.download_button(label="Baixar Excel", data=excel_buffer.getvalue(), file_name=f"ficha_técnica_{st.session_state.nome_receita}.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 
 
